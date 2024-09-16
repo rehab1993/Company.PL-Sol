@@ -11,10 +11,10 @@ namespace Company.DAL.Contexs
     public class AppDbContext :DbContext
 
     {
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=. ;Database=CompanyMVC;Trusted_Connection =True");
-        //}
-        //public DbSet<Department> DepartmentSet { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=. ;Database=CompanyMVC;Trusted_Connection =True");
+        }
+        public DbSet<Department> DepartmentSet { get; set; }
     }
 }

@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Company.DAL.Models
 {
-    //public class Department
-    //{
-    //    public int Id { get; set; }
-    //    [Required(ErrorMessage ="Name Is Required")]
-    //    public string Name { get; set; }
-    //    [Required(ErrorMessage = "Code Is Required")]
-    //    public string Code { get; set; }
-    //    public DateTime DateOfCreation { get; set; }
-    //}
+    public class Department
+    {
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Name Is Required")]
+        public string Name { get; set; }
+        [Required(ErrorMessage = "Code Is Required")]
+        public string Code { get; set; }
+        public DateTime DateOfCreation { get; set; }
+    }
 
-    
-        
+
+
 }
