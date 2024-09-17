@@ -12,9 +12,10 @@ namespace Company.PL.Controllers
             _departmentRepositry = departmentRepositry;
         }
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        public IActionResult Index()
+        {
+            var department = _departmentRepositry.GetAll();
+            return View(department);
+        }
     }
 }
