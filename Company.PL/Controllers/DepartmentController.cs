@@ -43,7 +43,7 @@ namespace Company.PL.Controllers
             }
             var department = _departmentRepositry.GetById(id.Value);
             if (department == null) {
-                return BadRequest();
+                return NotFound();
             }
             else
             {
@@ -51,6 +51,59 @@ namespace Company.PL.Controllers
             }
 
         }
+        [HttpGet]
+        public IActionResult Edit(int? id)
+
+        {
+            if(id == null) return BadRequest();
+            var department = _departmentRepositry.GetById(id.Value);
+            if (department == null) return NotFound();  
+            return View(department);
+
+        }
+        [HttpPost]
+        public IActionResult Edit(Department department, [FromRoute] int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _departmentRepositry.Update(department);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch(System.Exception ex)
+                {
+                    ModelState.AddModelError(string.Empty, ex.Message);
+
+                }
+                
+            }
+
+            else { 
+            }
+            return View();
+        }
+        public IActionResult Delete(int? id) { 
+            return Details(id);
+        }
+        [HttpPost]
+        public IActionResult Delete(Department department, [FromRoute] int id) { 
+            if(id != department.Id) { return BadRequest(); }
+            try
+            {
+                _departmentRepositry.Delete(department);
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch(System.Exception ex) {
+                ModelState.AddModelError(string.Empty,ex.Message);
+            
+
+
+            }return View(department);
+        
+        }
+        
 
 
     }
