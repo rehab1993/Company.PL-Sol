@@ -15,8 +15,8 @@ namespace Company.PL.Controllers
 
         public IActionResult Index()
         {
-            var department = _employeeRepositry.GetAll();
-            return View(department);
+            var employee = _employeeRepositry.GetAll();
+            return View(employee);
         }
         [HttpGet]
         public IActionResult Create()
