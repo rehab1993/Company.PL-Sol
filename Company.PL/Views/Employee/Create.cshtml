@@ -11,16 +11,19 @@
         <input class="form-control" asp-for="Name" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+
     <div>
         <label class="col-form-label" asp-for="Email">Email</label>
         <input class="form-control" asp-for="Email" />
         <span class="text-danger" asp-validation-for="Email"></span>
     </div>
+
     <div>
         <label class="col-form-label" asp-for="Address">Address</label>
         <input class="form-control" asp-for="Address" />
 
     </div>
+
     <div>
         <label class="col-form-label" asp-for="Age">Age</label>
         <input class="form-control" asp-for="Age" />
@@ -32,6 +35,7 @@
         <input class="form-control" asp-for="Phone" />
 
     </div>
+
     <div>
         <label class="col-form-label" asp-for="Salary">Salary</label>
         <input class="form-control" asp-for="Salary" />
@@ -42,6 +46,7 @@
         <input class="form-control" asp-for="HiringDate" />
 
     </div>
+
     <input class="btn btn-primary" type="Submit" value="submit" />
     <a asp-action="Index" class="btn btn-light">Back To List</a>
 
