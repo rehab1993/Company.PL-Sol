@@ -42,14 +42,14 @@ namespace Company.PL.Controllers
             {
                 return BadRequest();
             }
-            var department = _employeeRepositry.GetById(id.Value);
-            if (department == null)
+            var employee = _employeeRepositry.GetById(id.Value);
+            if (employee == null)
             {
                 return NotFound();
             }
             else
             {
-                return View(department);
+                return View(employee);
             }
 
         }
@@ -58,9 +58,9 @@ namespace Company.PL.Controllers
 
         {
             if (id == null) return BadRequest();
-            var department = _employeeRepositry.GetById(id.Value);
-            if (department == null) return NotFound();
-            return View(department);
+            var employee = _employeeRepositry.GetById(id.Value);
+            if (employee == null) return NotFound();
+            return View(employee);
 
         }
         [HttpPost]
