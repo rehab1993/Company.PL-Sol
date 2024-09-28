@@ -29,7 +29,14 @@ namespace Company.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                _employeeRepositry.Add(employee);
+                int result = _employeeRepositry.Add(employee);
+                if (result > 0)
+                {
+                    TempData["Message"] = "Employee Is Created";
+
+                }
+
+               
                 return RedirectToAction(nameof(Index));
 
             }

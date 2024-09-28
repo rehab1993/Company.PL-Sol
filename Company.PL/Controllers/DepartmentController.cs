@@ -29,7 +29,12 @@ namespace Company.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                _departmentRepositry.Add(department);
+                int result = _departmentRepositry.Add(department);
+                if(result > 0)
+                {
+                    TempData["Message"] = "Department is Created";
+                }
+
                 return RedirectToAction(nameof(Index));
 
             }
