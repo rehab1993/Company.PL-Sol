@@ -9,30 +9,15 @@
 
 <br/>
 <form asp-action="Create">
-    <div>
-        <label class="col-form-label" asp-for="Code">Code</label>
-        <input class="form-control" asp-for="Code"/>
-        <span asp-validation-for="Code" class="text-danger"></span>
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="Name">Name</label>
-        <input class="form-control" asp-for="Name" />
-        <span class="text-danger" asp-validation-for="Name"></span>
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="DateOfCreation">Name</label>
-        <input class="form-control" asp-for="DateOfCreation" />
-       
-    </div>
+   <partial name="_CreateEditView"/>
     <input class="btn btn-primary" type="Submit" value="submit"/>
     <a asp-action="Index" class="btn btn-light">Back To List</a>
 
 
 </form>
-@section ValidationScriptSection{
-    <script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+@section ValidationScriptSection {
+    <partial name="_ValidationScriptPartialView" />
 
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
 

@@ -6,21 +6,7 @@
 <h1>Are You Sure You Want To delete @Model.Name Department</h1>
 <div asp-validation-summary="All"></div>
 <form asp-action="Delete">
-    <div>
-        <label class="col-form-label" asp-for="Code">Code</label>
-        <input class="form-control" asp-for="Code" />
-
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="Name">Name</label>
-        <input class="form-control" asp-for="Name" />
-
-    </div>
-    <div>
-        <label class="col-form-label" asp-for="DateOfCreation">Name</label>
-        <input class="form-control" asp-for="DateOfCreation" />
-
-    </div>
+    <partial name="PartialViews/_DeleteDetailsView" />
     <input class="btn btn-danger" value="Delete" type="submit" />
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 
