@@ -23,9 +23,15 @@ namespace Company.PL.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string SearchValue)
         {
-            var employee = _employeeRepositry.GetAll();
+            IEnumerable<Employee> employee;
+            if (string.IsNullOrEmpty(SearchValue))
+            {
+                employee = _employeeRepositry.GetAll();
+            }else
+                employee=_employeeRepositry.GetEmployeesByName(SearchValue);
+             
             var MappedEmployees = _mapper.Map<IEnumerable<Employee>,IEnumerable<EmployeeViewModel>>(employee);
             return View(MappedEmployees);
         }

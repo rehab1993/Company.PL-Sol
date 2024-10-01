@@ -27,6 +27,9 @@ namespace Company.BLL.Repositries
             return _context.Employees.Where(e => e.Address == address);
         }
 
-       
+        public IQueryable<Employee> GetEmployeesByName(string SearchName)
+        {
+         return  _context.Employees.Where(E=>E.Name.ToLower().Contains(SearchName.ToLower()));
+        }
     }
 }

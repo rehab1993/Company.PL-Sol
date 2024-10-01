@@ -16,6 +16,7 @@ namespace Company.BLL.Interfaces
         //int Add(Employee employee);
         //int Update(Employee employee);
         //int Delete(Employee employee);
+        IQueryable<Employee> GetEmployeesByName(string SearchName);
 
     }
 }
