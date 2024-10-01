@@ -41,29 +41,26 @@ namespace Company.PL.Controllers
 
             return View();
         }
-        public IActionResult Details(int? id) {
+        public IActionResult Details(int? id,string ViewName = "Edit") {
             if(id == null)
-            {
-                return BadRequest();
-            }
+          return BadRequest();
+            
             var department = _departmentRepositry.GetById(id.Value);
-            if (department == null) {
+            if (department == null) 
                 return NotFound();
-            }
-            else
-            {
-                return View(department);
-            }
+            
+            
+            
+                return View(ViewName,department);
+            
 
         }
         [HttpGet]
         public IActionResult Edit(int? id)
 
         {
-            if(id == null) return BadRequest();
-            var department = _departmentRepositry.GetById(id.Value);
-            if (department == null) return NotFound();  
-            return View(department);
+             
+            return Details(id,"Edit");
 
         }
         [HttpPost]

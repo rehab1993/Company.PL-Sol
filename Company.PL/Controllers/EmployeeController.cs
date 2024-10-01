@@ -1,7 +1,11 @@
-﻿using Company.BLL.Interfaces;
+﻿using AutoMapper;
+using Company.BLL.Interfaces;
 using Company.BLL.Repositries;
 using Company.DAL.Models;
+using Company.PL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Collections.Generic;
 
 namespace Company.PL.Controllers
 {
@@ -9,17 +13,21 @@ namespace Company.PL.Controllers
     {
         private readonly IEmployeeRepository _employeeRepositry;
         private readonly IDepartmentRepositry _departmentRepositry;
+        private readonly IMapper _mapper;
 
-        public EmployeeController(IEmployeeRepository employeeRepository,IDepartmentRepositry departmentRepositry)
+        public EmployeeController(IEmployeeRepository employeeRepository,IDepartmentRepositry departmentRepositry,
+            IMapper mapper)
         {
             _employeeRepositry = employeeRepository;
             _departmentRepositry = departmentRepositry;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var employee = _employeeRepositry.GetAll();
-            return View(employee);
+            var MappedEmployees = _mapper.Map<IEnumerable<Employee>,IEnumerable<EmployeeViewModel>>(employee);
+            return View(MappedEmployees);
         }
         [HttpGet]
         public IActionResult Create()
@@ -29,11 +37,13 @@ namespace Company.PL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        public IActionResult Create(EmployeeViewModel employeeVM)
         {
             if (ModelState.IsValid)
             {
-                int result = _employeeRepositry.Add(employee);
+                var MappedEmployee = _mapper.Map < EmployeeViewModel, Employee>(employeeVM);
+              
+                int result = _employeeRepositry.Add(MappedEmployee);
                 if (result > 0)
                 {
                     TempData["Message"] = "Employee Is Created";
@@ -47,7 +57,7 @@ namespace Company.PL.Controllers
 
             return View();
         }
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? id, string ViewName = "Details")
         {
             if (id == null)
             {
@@ -55,33 +65,33 @@ namespace Company.PL.Controllers
             }
             var employee = _employeeRepositry.GetById(id.Value);
             if (employee == null)
-            {
+            
                 return NotFound();
-            }
-            else
-            {
-                return View(employee);
-            }
+                var MappedEmployee = _mapper.Map<Employee, EmployeeViewModel>(employee);
 
+
+                return View(ViewName, MappedEmployee);
+
+
+            
         }
         [HttpGet]
         public IActionResult Edit(int? id)
 
         {
-            if (id == null) return BadRequest();
-            var employee = _employeeRepositry.GetById(id.Value);
-            if (employee == null) return NotFound();
-            return View(employee);
+           
+            return Details(id,"Edit");
 
         }
         [HttpPost]
-        public IActionResult Edit(Employee employee, [FromRoute] int id)
+        public IActionResult Edit(EmployeeViewModel employeeVM, [FromRoute] int id)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _employeeRepositry.Update(employee);
+                    var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee>(employeeVM);
+                    _employeeRepositry.Update(MappedEmployee);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (System.Exception ex)
@@ -95,19 +105,20 @@ namespace Company.PL.Controllers
             else
             {
             }
-            return View();
+            return View(employeeVM);
         }
         public IActionResult Delete(int? id)
         {
             return Details(id);
         }
         [HttpPost]
-        public IActionResult Delete(Employee employee, [FromRoute] int id)
+        public IActionResult Delete(EmployeeViewModel employeeVM, [FromRoute] int id)
         {
-            if (id != employee.Id) { return BadRequest(); }
+            if (id != employeeVM.Id) { return BadRequest(); }
             try
             {
-                _employeeRepositry.Delete(employee);
+                var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee> (employeeVM);
+                _employeeRepositry.Delete(MappedEmployee);
                 return RedirectToAction(nameof(Index));
 
             }
@@ -118,7 +129,7 @@ namespace Company.PL.Controllers
 
 
             }
-            return View(employee);
+            return View(employeeVM);
 
         }
 

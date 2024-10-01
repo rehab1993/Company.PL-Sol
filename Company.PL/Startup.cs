@@ -2,6 +2,7 @@ using Company.BLL.Interfaces;
 using Company.BLL.Repositries;
 using Company.DAL.Contexs;
 using Company.DAL.Models;
+using Company.PL.MappingProfiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,8 @@ namespace Company.PL
             );
             services.AddScoped<IDepartmentRepositry , DepartmenrRepositry>();
             services.AddScoped<IEmployeeRepository, EmployeeRepositry>();
+            services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
