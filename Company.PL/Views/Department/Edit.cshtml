@@ -7,12 +7,13 @@
 <div asp-validation-summary="All"></div>
 <form asp-action="Edit">
     <partial name="_CreateEditView" />
+
     <input class="btn btn-primary" type="Submit" value="Save" />
     <a asp-action="Index" class="btn btn-light">Back To List</a>
 
 
 </form>
 @section ValidationScriptSection {
-    <partial name="_ValidationScriptPartialView" />
+    <partial name="_ValidationScriptsPartial" />
 }
 

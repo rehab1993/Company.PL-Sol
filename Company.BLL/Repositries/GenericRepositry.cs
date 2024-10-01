@@ -1,5 +1,7 @@
 ﻿using Company.BLL.Interfaces;
 using Company.DAL.Contexs;
+using Company.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,10 @@ namespace Company.BLL.Repositries
 
         public IEnumerable<T> GetAll()
         {
+            if(typeof(T) == typeof(Employee)){
+
+                return (IEnumerable<T>)_dbContext.Employees.Include(e=>e.Department).ToList();
+            }
           return  _dbContext.Set<T>().ToList();
         }
 

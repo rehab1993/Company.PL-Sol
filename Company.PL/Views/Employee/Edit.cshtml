@@ -7,11 +7,8 @@
 <div asp-validation-summary="All"></div>
 <form asp-action="Edit">
 
-   <partial name="_CreateEditView"/>
-        <label class="col-form-label" asp-for="HiringDate">Hiring Date</label>
-        <input readonly class="form-control" asp-for="HiringDate" />
+    <partial name="_CreateEditView" />
 
-    </div>
 
 
     <input class="btn btn-primary" type="submit" value="Save" />
@@ -20,5 +17,5 @@
 
 </form>
 @section ValidationScriptSection {
-    <partial name="_ValidationScriptPartialView" />
+    <partial name="_ValidationScriptsPartial" />
 }

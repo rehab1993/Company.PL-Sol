@@ -9,15 +9,16 @@
 
 <br/>
 <form asp-action="Create">
+
    <partial name="_CreateEditView"/>
+
     <input class="btn btn-primary" type="Submit" value="submit"/>
     <a asp-action="Index" class="btn btn-light">Back To List</a>
 
 
 </form>
 @section ValidationScriptSection {
-    <partial name="_ValidationScriptPartialView" />
-
+    <partial name="_ValidationScriptsPartial" />
 }
 
 
