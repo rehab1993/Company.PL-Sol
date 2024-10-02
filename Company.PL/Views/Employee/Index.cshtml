@@ -29,7 +29,8 @@
 {
     <table class="table table-striped mt-3 table-hover">
         <thead>
-       
+       <tr>
+        <td>@Html.DisplayNameFor(e => e.Image)</td>
         <td>@Html.DisplayNameFor(e => e.Name)</td>
         <td>@Html.DisplayNameFor(e => e.Email)</td>
          <td>@Html.DisplayNameFor(e => e.Address)</td>
@@ -44,12 +45,13 @@
         <td>Details</td>
         <td>Update</td>
         <td>Delete</td>
-
+            </tr>
         </thead>
         <tbody>
             @foreach (var Employee in Model)
             {
                 <tr>
+                    <td><img src="~/Files/Images/@Employee.ImageName" class="rounded" height="40" width="40" alt="EmployeeImage"/></td>
                     <td>@Employee.Name</td>
                     <td>@Html.DisplayFor(e=>Employee.Email)</td>
                     <td>@Employee.Address</td>

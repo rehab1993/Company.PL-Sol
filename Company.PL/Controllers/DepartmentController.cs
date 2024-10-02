@@ -44,7 +44,7 @@ namespace Company.PL.Controllers
 
             }
 
-            return View();
+            return View(department);
         }
         public IActionResult Details(int? id,string ViewName = "Edit") {
             if(id == null)

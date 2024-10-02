@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Company.BLL.Repositries
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly AppDbContext _dbContext;
 
@@ -24,6 +24,11 @@ namespace Company.BLL.Repositries
         {
             return _dbContext.SaveChanges();
             
+        }
+
+        public void Dispose()
+        {
+            _dbContext.Dispose();
         }
     }
 }

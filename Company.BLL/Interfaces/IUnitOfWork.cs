@@ -12,5 +12,6 @@ namespace Company.BLL.Interfaces
         public IDepartmentRepositry departmentRepository { get; set; }
 
         int Complete();
+        void Dispose();
     }
 }

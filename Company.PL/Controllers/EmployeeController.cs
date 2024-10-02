@@ -2,6 +2,7 @@
 using Company.BLL.Interfaces;
 using Company.BLL.Repositries;
 using Company.DAL.Models;
+using Company.PL.Helpers;
 using Company.PL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -48,6 +49,8 @@ namespace Company.PL.Controllers
         {
             if (ModelState.IsValid)
             {
+              string FileName=  DocumentSettings.UploadFile(employeeVM.Image , "Images");
+                employeeVM.ImageName = FileName;
                 var MappedEmployee = _mapper.Map < EmployeeViewModel, Employee>(employeeVM);
               
                   _unitofwork.EmployeeRepository.Add(MappedEmployee);

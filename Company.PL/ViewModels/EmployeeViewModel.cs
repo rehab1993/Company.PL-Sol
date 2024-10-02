@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace Company.PL.ViewModels
 {
@@ -32,7 +33,9 @@ namespace Company.PL.ViewModels
         public bool IsActive { get; set; }
         [DisplayName("Hiring Date")]
         public DateTime HiringDate { get; set; }
-        [DisplayName("Date Of Creation")]
+       public IFormFile Image { get; set; }
+        public string ImageName {  get; set; }
+
        
         [ForeignKey("Department")]
         public int? DepartmentId { get; set; }

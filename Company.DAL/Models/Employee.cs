@@ -35,6 +35,7 @@ namespace Company.DAL.Models
         public DateTime HiringDate { get; set; }
   
         public DateTime DateOfCreation { get; set; } = DateTime.Now;
+        public string ImageName { get; set; }
         [ForeignKey("Department")]
         public int? DepartmentId { get; set; }
         [InverseProperty("Employees")]
