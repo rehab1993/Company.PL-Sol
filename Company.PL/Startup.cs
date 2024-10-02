@@ -38,8 +38,9 @@ namespace Company.PL
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
             services.AddScoped<IDepartmentRepositry , DepartmenrRepositry>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepositry>();
+         
             services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
 
         }
 

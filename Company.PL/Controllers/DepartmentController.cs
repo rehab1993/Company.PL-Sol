@@ -7,15 +7,18 @@ namespace Company.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private IDepartmentRepositry _departmentRepositry;
-        public DepartmentController(IDepartmentRepositry departmentRepositry)
+       // private IDepartmentRepositry _departmentRepositry;
+        private readonly IUnitOfWork _unitofwork;
+
+        public DepartmentController(IUnitOfWork unitofwork)
         {
-            _departmentRepositry = departmentRepositry;
+           // _departmentRepositry = departmentRepositry;
+            _unitofwork = unitofwork;
         }
 
         public IActionResult Index()
         {
-            var department = _departmentRepositry.GetAll();
+            var department = _unitofwork.departmentRepository.GetAll();
             return View(department);
         }
         [HttpGet]
@@ -29,7 +32,9 @@ namespace Company.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                int result = _departmentRepositry.Add(department);
+                _unitofwork.departmentRepository.Add(department);
+                int result = _unitofwork.Complete();
+
                 if(result > 0)
                 {
                     TempData["Message"] = "Department is Created";
@@ -45,7 +50,7 @@ namespace Company.PL.Controllers
             if(id == null)
           return BadRequest();
             
-            var department = _departmentRepositry.GetById(id.Value);
+            var department = _unitofwork.departmentRepository.GetById(id.Value);
             if (department == null) 
                 return NotFound();
             
@@ -70,7 +75,7 @@ namespace Company.PL.Controllers
             {
                 try
                 {
-                    _departmentRepositry.Update(department);
+                    _unitofwork.departmentRepository.Update(department);
                     return RedirectToAction(nameof(Index));
                 }
                 catch(System.Exception ex)
@@ -93,7 +98,7 @@ namespace Company.PL.Controllers
             if(id != department.Id) { return BadRequest(); }
             try
             {
-                _departmentRepositry.Delete(department);
+                _unitofwork.departmentRepository.Delete(department);
                 return RedirectToAction(nameof(Index));
 
             }

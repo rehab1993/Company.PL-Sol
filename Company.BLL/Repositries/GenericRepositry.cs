@@ -18,16 +18,16 @@ namespace Company.BLL.Repositries
         {
             _dbContext = dbContext;
         }
-        public int Add(T item)
+        public void Add(T item)
         {
             _dbContext.Add<T>(item);
-            return _dbContext.SaveChanges();
+           
         }
 
-        public int Delete(T id)
+        public void Delete(T id)
         {
             _dbContext.Remove(id);
-            return _dbContext.SaveChanges();
+           
         }
 
         public IEnumerable<T> GetAll()
@@ -44,10 +44,10 @@ namespace Company.BLL.Repositries
             return _dbContext.Set<T>().Find(id);
         }
 
-        public int Update(T item)
+        public void Update(T item)
         {
             _dbContext.Update<T>(item);
-            return _dbContext.SaveChanges();    
+               
         }
     }
 }
