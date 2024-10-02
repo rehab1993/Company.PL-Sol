@@ -17,5 +17,13 @@ namespace Company.PL.Helpers
 
         }
 
+        public static void DeletFile(string FileName,string FolderName) {
+            string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", FolderName,FileName);
+            if (File.Exists(FilePath)) { 
+                File.Delete(FilePath);
+            }
+
+        }
+
     }
 }

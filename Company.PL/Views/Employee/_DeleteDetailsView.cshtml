@@ -1,4 +1,8 @@
 ﻿@model EmployeeViewModel
+<div class="form-group">
+    <img src="~/Files/Images/@Model.ImageName" class="rounded" width="40" height="40" />
+    <input asp-for="ImageName" hidden />
+</div>
 <div>
     <label class="col-form-label" asp-for="Name">Name</label>
     <input readonly class="form-control" asp-for="Name" />

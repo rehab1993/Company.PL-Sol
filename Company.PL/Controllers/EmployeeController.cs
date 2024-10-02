@@ -130,6 +130,10 @@ namespace Company.PL.Controllers
             {
                 var MappedEmployee = _mapper.Map<EmployeeViewModel, Employee> (employeeVM);
                _unitofwork.EmployeeRepository.Delete(MappedEmployee);
+                var result = _unitofwork.Complete();
+                if (result>0 && employeeVM.ImageName is not null) {
+                    DocumentSettings.DeletFile(employeeVM.ImageName, "Images");
+                        }
                 return RedirectToAction(nameof(Index));
 
             }
