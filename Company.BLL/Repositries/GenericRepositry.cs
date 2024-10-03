@@ -18,9 +18,9 @@ namespace Company.BLL.Repositries
         {
             _dbContext = dbContext;
         }
-        public void Add(T item)
+        public async Task AddAsync(T item)
         {
-            _dbContext.Add<T>(item);
+           await _dbContext.AddAsync<T>(item);
            
         }
 
@@ -30,18 +30,18 @@ namespace Company.BLL.Repositries
            
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task <IEnumerable<T>> GetAllAsync()
         {
             if(typeof(T) == typeof(Employee)){
 
-                return (IEnumerable<T>)_dbContext.Employees.Include(e=>e.Department).ToList();
+                return  (IEnumerable<T>) await _dbContext.Employees.Include(e=>e.Department).ToListAsync();
             }
-          return  _dbContext.Set<T>().ToList();
+          return await _dbContext.Set<T>().ToListAsync();
         }
 
-        public T GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            return _dbContext.Set<T>().Find(id);
+            return  await _dbContext.Set<T>().FindAsync(id);
         }
 
         public void Update(T item)

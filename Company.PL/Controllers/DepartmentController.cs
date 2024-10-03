@@ -2,6 +2,7 @@
 using Company.BLL.Repositries;
 using Company.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Company.PL.Controllers
 {
@@ -16,9 +17,9 @@ namespace Company.PL.Controllers
             _unitofwork = unitofwork;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var department = _unitofwork.departmentRepository.GetAll();
+            var department =await _unitofwork.departmentRepository.GetAllAsync();
             return View(department);
         }
         [HttpGet]
@@ -28,12 +29,12 @@ namespace Company.PL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Department department)
+        public async Task<IActionResult> Create(Department department)
         {
             if (ModelState.IsValid)
             {
-                _unitofwork.departmentRepository.Add(department);
-                int result = _unitofwork.Complete();
+              await  _unitofwork.departmentRepository.AddAsync(department);
+                int result = await _unitofwork.CompleteAsync();
 
                 if(result > 0)
                 {
@@ -46,12 +47,12 @@ namespace Company.PL.Controllers
 
             return View(department);
         }
-        public IActionResult Details(int? id,string ViewName = "Edit") {
+        public async Task<IActionResult> Details(int? id,string ViewName = "Details") {
             if(id == null)
           return BadRequest();
             
-            var department = _unitofwork.departmentRepository.GetById(id.Value);
-            if (department == null) 
+            var department =await _unitofwork.departmentRepository.GetByIdAsync(id.Value);
+            if (department is null) 
                 return NotFound();
             
             
@@ -61,21 +62,23 @@ namespace Company.PL.Controllers
 
         }
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
 
         {
              
-            return Details(id,"Edit");
+            return await Details(id,"Edit");
 
         }
         [HttpPost]
-        public IActionResult Edit(Department department, [FromRoute] int id)
+        public async Task<IActionResult> Edit(Department department, [FromRoute] int id)
         {
+            if(id != department.Id) { return BadRequest(); }
             if (ModelState.IsValid)
             {
                 try
                 {
                     _unitofwork.departmentRepository.Update(department);
+                   await _unitofwork.CompleteAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch(System.Exception ex)
@@ -90,15 +93,16 @@ namespace Company.PL.Controllers
             }
             return View();
         }
-        public IActionResult Delete(int? id) { 
-            return Details(id);
+        public async Task<IActionResult> Delete(int? id) { 
+            return await Details(id,"Delete");
         }
         [HttpPost]
-        public IActionResult Delete(Department department, [FromRoute] int id) { 
+        public async Task<IActionResult> Delete(Department department, [FromRoute] int id) { 
             if(id != department.Id) { return BadRequest(); }
             try
             {
-                _unitofwork.departmentRepository.Delete(department);
+                 _unitofwork.departmentRepository.Delete(department);
+                await _unitofwork.CompleteAsync();
                 return RedirectToAction(nameof(Index));
 
             }

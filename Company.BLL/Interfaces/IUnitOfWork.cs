@@ -11,7 +11,7 @@ namespace Company.BLL.Interfaces
         public IEmployeeRepository EmployeeRepository { get; set; }
         public IDepartmentRepositry departmentRepository { get; set; }
 
-        int Complete();
+        Task<int> CompleteAsync();
         void Dispose();
     }
 }

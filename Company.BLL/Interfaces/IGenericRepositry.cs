@@ -9,10 +9,10 @@ namespace Company.BLL.Interfaces
     public interface IGenericRepositry<T>
     {
        
-        IEnumerable<T> GetAll();
-        T GetById(int id);
+       Task< IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(int id);
             
-        void Add(T item);
+        Task AddAsync(T item);
         void Update(T item);
         void Delete(T item);
 
