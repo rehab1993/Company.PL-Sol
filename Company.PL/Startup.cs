@@ -1,6 +1,16 @@
+using Company.BLL.Interfaces;
+using Company.BLL.Repositries;
+using Company.DAL.Contexs;
+using Company.DAL.Models;
+using Company.PL.Helpers;
+using Company.PL.MappingProfiles;
+using Company.PL.Settings;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +34,35 @@ namespace Company.PL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            //};
+            services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+            services.AddScoped<IDepartmentRepositry , DepartmenrRepositry>();
+         
+            services.AddAutoMapper(M=>M.AddProfile(new EmployeeProfile()));
+            services.AddAutoMapper(M => M.AddProfile(new UserProfile()));
+
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+            })
+                .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "Account/Login";
+                options.AccessDeniedPath = "Home/Error";
+            });
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService,EmailSettings>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,14 +82,17 @@ namespace Company.PL
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

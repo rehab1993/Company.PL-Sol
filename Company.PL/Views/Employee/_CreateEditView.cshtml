@@ -1,0 +1,56 @@
+﻿@model EmployeeViewModel
+@inject IDepartmentRepositry DepartmentRepo
+@{
+    var Departments = new SelectList(DepartmentRepo.GetAllAsync().Result, "Id", "Name");
+}
+
+<input asp-for="ImageName" hidden />
+<div>
+    <label class="col-form-label" asp-for="Name">Name</label>
+    <input class="form-control" asp-for="Name" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Image"></label>
+    <input class="form-control" asp-action="Image" />
+
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Email">Email</label>
+    <input class="form-control" asp-for="Email" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Address">Address</label>
+    <input class="form-control" asp-for="Address" />
+    <span asp-validation-for="Address" class="text-danger"></span>
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Age">Age</label>
+    <input class="form-control" asp-for="Age" />
+    <span asp-validation-for="Age" class="text-danger"></span>
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Phone">Phone</label>
+    <input class="form-control" asp-for="Phone" />
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Salary">Salary</label>
+    <input class="form-control" asp-for="Salary" />
+
+</div>
+<div>
+    <label class="col-form-label" asp-for="Department"></label>
+    <select class="form-control" asp-items="@Departments" asp-for="DepartmentId">
+        <option value="@null">----Select Department</option>
+    </select>
+
+</div>
+
+

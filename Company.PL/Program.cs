@@ -13,6 +13,7 @@ namespace Company.PL
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("hello dev");
             CreateHostBuilder(args).Build().Run();
         }
 
