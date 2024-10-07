@@ -4,6 +4,7 @@ using Company.BLL.Repositries;
 using Company.DAL.Models;
 using Company.PL.Helpers;
 using Company.PL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Company.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
 

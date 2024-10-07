@@ -1,11 +1,13 @@
 ﻿using Company.BLL.Interfaces;
 using Company.BLL.Repositries;
 using Company.DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Company.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
        // private IDepartmentRepositry _departmentRepositry;

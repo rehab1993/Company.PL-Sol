@@ -10,7 +10,7 @@
     </div>
 }
 
-<h1>All Employees</h1>
+
 <a asp-action="Create" class="btn btn-success">Create New Employee</a>
 
 <br />
@@ -27,6 +27,9 @@
 </div>
 @if (Model.Count() > 0)
 {
+    <br />
+    <h1>All Employees</h1>
+    <br />
     <table class="table table-striped mt-3 table-hover">
         <thead>
        <tr>
@@ -51,7 +54,7 @@
             @foreach (var Employee in Model)
             {
                 <tr>
-                    <td><img src="~/Files/Images/@Employee.ImageName" class="rounded" height="40" width="40" alt="EmployeeImage"/></td>
+                    <td><img src="~/Files/Images/@Employee.ImageName" class="rounded" height="40" width="40" alt="EmployeeImage" /></td>
                     <td>@Employee.Name</td>
                     <td>@Html.DisplayFor(e=>Employee.Email)</td>
                     <td>@Employee.Address</td>
@@ -75,7 +78,7 @@
                   
                         </td>
                
-                    <partial name="_ButtonsPartialViews" model="@Employee.Id" />
+                    <partial name="_ButtonsPartialViews" model="@Employee.Id.ToString()" />
                     
         
                 </tr>
