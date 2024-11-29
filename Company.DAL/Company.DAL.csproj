@@ -4,4 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="Contexts\AppDbContext.cs~RFbf3a8ed2.TMP" />
+    <None Include="Contexts\sllqcr3h.0ds~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+  </ItemGroup>
+
 </Project>
